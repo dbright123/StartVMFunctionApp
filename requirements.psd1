@@ -1,6 +1,6 @@
-# This file enables modules to be automatically managed by the Functions service.
-# See https://aka.ms/functionsmanageddependency for additional information.
+# Managed Dependencies are NOT supported on Linux Consumption (Legion).
+# Modules are instead bundled with the app under the 'Modules' folder.
+# See https://aka.ms/functions-powershell-include-modules
+# Keep this hashtable empty so the worker does not try to restore modules at runtime.
 @{
-    'Az.Accounts' = '5.*'
-    'Az.Compute'  = '9.*'
 }

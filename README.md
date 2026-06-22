@@ -7,16 +7,24 @@ A PowerShell Azure Functions app that starts an Azure VM via two triggers:
 
 Authentication uses the Function App's **system-assigned managed identity** — no secrets stored in code.
 
+> **Modules:** This app targets **Linux Consumption (Legion)**, which does **not** support
+> Managed Dependencies (`requirements.psd1`). The Az modules are therefore **bundled** with
+> the app under the `Modules/` folder. Run [`install-modules.ps1`](install-modules.ps1) once
+> before deploying. See https://aka.ms/functions-powershell-include-modules.
+
 ## Project structure
 
 ```
 StartVMFunctionApp/
-├── host.json                 # Host config + extension bundle
-├── requirements.psd1         # Managed Az modules (Az.Accounts, Az.Compute)
+├── host.json                 # Host config (managedDependency disabled) + extension bundle
+├── requirements.psd1         # Intentionally empty (managed deps not supported)
+├── install-modules.ps1       # Downloads Az modules into Modules/ for bundling
 ├── profile.ps1               # Cold-start: Connect-AzAccount -Identity
 ├── local.settings.json       # Local config (not deployed)
 ├── Modules/
-│   └── StartVM.psm1          # Shared Start-TargetVM helper (auto-loaded)
+│   ├── StartVM.psm1          # Shared Start-TargetVM helper (auto-loaded)
+│   ├── Az.Accounts/          # Bundled (created by install-modules.ps1)
+│   └── Az.Compute/           # Bundled (created by install-modules.ps1)
 ├── StartVMHttp/
 │   ├── function.json
 │   └── run.ps1
@@ -72,6 +80,9 @@ az functionapp config appsettings set --resource-group $rg --name $appName --set
   RESOURCE_GROUP=$vmRg `
   VM_NAME="<your-vm-name>"
 
+# Bundle the Az modules with the app (required - managed deps not supported)
+./install-modules.ps1
+
 # Publish the code
 func azure functionapp publish $appName
 ```
@@ -79,8 +90,9 @@ func azure functionapp publish $appName
 ## Run locally
 
 1. Fill in `local.settings.json` with your `SUBSCRIPTION_ID`, `RESOURCE_GROUP`, `VM_NAME`.
-2. Sign in so the local host can authenticate: `Connect-AzAccount`.
-3. Start the host: `func start`.
+2. Download the bundled modules: `./install-modules.ps1`.
+3. Sign in so the local host can authenticate: `Connect-AzAccount`.
+4. Start the host: `func start`.
 
 ## Call the HTTP trigger
 

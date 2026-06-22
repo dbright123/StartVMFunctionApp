@@ -9,5 +9,6 @@ local.settings.json
 __pycache__
 *.user
 
-# PowerShell managed dependencies (downloaded at runtime)
-Modules/Az*
+# NOTE: Az modules under Modules/ MUST be committed/deployed with the app
+# (managed dependencies are not available on Linux Consumption), so they are
+# intentionally NOT ignored here. Run ./install-modules.ps1 to populate them.
