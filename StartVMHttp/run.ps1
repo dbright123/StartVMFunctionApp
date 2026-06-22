@@ -6,9 +6,9 @@ param($Request, $TriggerMetadata)
 Write-Host "StartVMHttp trigger received a request."
 
 # Allow overriding the target VM via query string or JSON body, otherwise fall back to app settings.
-$subscriptionId = $Request.Query.SubscriptionId  ?? $Request.Body.SubscriptionId  ?? $env:SUBSCRIPTION_ID
-$resourceGroup  = $Request.Query.ResourceGroup   ?? $Request.Body.ResourceGroup   ?? $env:RESOURCE_GROUP
-$vmName         = $Request.Query.VmName          ?? $Request.Body.VmName          ?? $env:VM_NAME
+$subscriptionId = $env:SUBSCRIPTION_ID
+$resourceGroup  = $env:RESOURCE_GROUP
+$vmName         = $env:VM_NAME
 
 $status  = [HttpStatusCode]::OK
 $message = ""
