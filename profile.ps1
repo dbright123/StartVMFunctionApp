@@ -12,9 +12,24 @@
 # Authenticate with Azure PowerShell using the Function App's managed identity.
 # Ensure MSI is enabled and the identity has the required role (e.g. "Virtual Machine Contributor")
 # on the target VM / resource group / subscription.
-if ($env:MSI_SECRET) {
-    Disable-AzContextAutosave -Scope Process | Out-Null
-    Connect-AzAccount -Identity
+#
+# Different hosting platforms expose the managed identity differently:
+#   * App Service / classic Functions  -> MSI_SECRET
+#   * Linux Consumption (Legion)/Flex  -> IDENTITY_ENDPOINT + IDENTITY_HEADER
+# Check for any of them so auth works across plans.
+if ($env:MSI_SECRET -or $env:IDENTITY_ENDPOINT) {
+    try {
+        Disable-AzContextAutosave -Scope Process | Out-Null
+        Connect-AzAccount -Identity -ErrorAction Stop | Out-Null
+        Write-Host "Connected to Azure using the managed identity."
+    }
+    catch {
+        Write-Error "Managed identity sign-in failed: $($_.Exception.Message)"
+        throw
+    }
+}
+else {
+    Write-Warning "No managed identity environment detected. Skipping Connect-AzAccount (expected only for local dev where you run Connect-AzAccount manually)."
 }
 
 # Uncomment the next line to enable legacy AzureRm alias in Cloud Shell.

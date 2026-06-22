@@ -22,9 +22,11 @@ StartVMFunctionApp/
 ├── profile.ps1               # Cold-start: Connect-AzAccount -Identity
 ├── local.settings.json       # Local config (not deployed)
 ├── Modules/
-│   ├── StartVM.psm1          # Shared Start-TargetVM helper (auto-loaded)
-│   ├── Az.Accounts/          # Bundled (created by install-modules.ps1)
-│   └── Az.Compute/           # Bundled (created by install-modules.ps1)
+│   ├── StartVM/             # Shared Start-TargetVM helper module (auto-loaded)
+│   │   ├── StartVM.psm1
+│   │   └── StartVM.psd1
+│   ├── Az.Accounts/         # Bundled (created by install-modules.ps1)
+│   └── Az.Compute/          # Bundled (created by install-modules.ps1)
 ├── StartVMHttp/
 │   ├── function.json
 │   └── run.ps1
