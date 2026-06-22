@@ -1,0 +1,13 @@
+bin
+obj
+appsettings.json
+local.settings.json
+.vscode
+
+# Azure Functions artifacts
+.python_packages
+__pycache__
+*.user
+
+# PowerShell managed dependencies (downloaded at runtime)
+Modules/Az*
