@@ -4,6 +4,5 @@
 # Keep this hashtable empty so the worker does not try to restore modules at runtime.
 
 @{ 
-  'Az' = '12.*'   # or latest supported version
-  'Az.Compute' = '6.*'
+
 }
