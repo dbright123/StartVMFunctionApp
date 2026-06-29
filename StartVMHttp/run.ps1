@@ -12,8 +12,9 @@ $vmName         = "testing"
 
 $status  = [HttpStatusCode]::OK
 $message = ""
-
+Import-Module Az.Compute -ErrorAction Stop
 try {
+    
     if (-not $subscriptionId -or -not $resourceGroup -or -not $vmName) {
         throw "Missing required parameters. Provide SubscriptionId, ResourceGroup and VmName (via query, body, or app settings)."
     }
