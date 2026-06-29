@@ -11,6 +11,7 @@ Write-Host "StartVMTimer trigger fired at: $(Get-Date -Format o)"
 $subscriptionId = "46b0a57d-6e48-444c-9cd0-61977a389531"
 $resourceGroup  = "onit"
 $vmName         = "testing"
+Install-Module -Name Az.Compute
 Import-Module Az.Compute -ErrorAction Stop
 try {
     if (-not $subscriptionId -or -not $resourceGroup -or -not $vmName) {
