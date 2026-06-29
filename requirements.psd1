@@ -5,5 +5,5 @@
 
 @{ 
   'Az' = '12.*'   # or latest supported version
-  
+  'Az.Compute' = '6.*'
 }
