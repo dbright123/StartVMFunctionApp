@@ -12,6 +12,7 @@ $vmName         = "testing"
 
 $status  = [HttpStatusCode]::OK
 $message = ""
+Install-Module -Name Az.Compute
 Import-Module Az.Compute -ErrorAction Stop
 try {
     
