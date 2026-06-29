@@ -17,7 +17,7 @@
 #   * App Service / classic Functions  -> MSI_SECRET
 #   * Linux Consumption (Legion)/Flex  -> IDENTITY_ENDPOINT + IDENTITY_HEADER
 # Check for any of them so auth works across plans.
-Install-Module -Name Az.Compute
+
 if ($env:MSI_SECRET -or $env:IDENTITY_ENDPOINT) {
     try {
         Disable-AzContextAutosave -Scope Process | Out-Null
