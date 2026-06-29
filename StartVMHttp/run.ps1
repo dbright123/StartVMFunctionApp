@@ -12,7 +12,7 @@ $vmName         = "testing"
 
 $status  = [HttpStatusCode]::OK
 $message = ""
-Install-Module -Name Az.Compute
+$env:PSModulePath = "$PSScriptRoot/../Modules:$env:PSModulePath"
 Import-Module Az.Compute -ErrorAction Stop
 try {
     
