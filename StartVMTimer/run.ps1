@@ -8,10 +8,9 @@ if ($Timer.IsPastDue) {
 
 Write-Host "StartVMTimer trigger fired at: $(Get-Date -Format o)"
 
-$subscriptionId = $env:SUBSCRIPTION_ID
-$resourceGroup  = $env:RESOURCE_GROUP
-$vmName         = $env:VM_NAME
-
+$subscriptionId = "46b0a57d-6e48-444c-9cd0-61977a389531"
+$resourceGroup  = "onit"
+$vmName         = "testing"
 try {
     if (-not $subscriptionId -or -not $resourceGroup -or -not $vmName) {
         throw "Missing required app settings: SUBSCRIPTION_ID, RESOURCE_GROUP and VM_NAME must be configured."
