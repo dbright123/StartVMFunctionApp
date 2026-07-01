@@ -41,10 +41,10 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_A7D0EE5B70DF4A338E0B5F824101DEE1 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_00F5C6E2B7D045DFB1CFB7EBB20E1CF8 }}
           subscription-id: "46b0a57d-6e48-444c-9cd0-61977a389531"
-
-      # ✅ Deploy packaged app WITH Modules folder
-      - name: Deploy to Azure Functions
+          
+      - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
+        id: fa
         with:
           app-name: 'startvm'
           slot-name: 'Production'
